@@ -54,10 +54,10 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/your-org/educonnect-app.git"
+    "url": "https://github.com/sertjerm/edu-connect-demo.git"
   },
   "bugs": {
-    "url": "https://github.com/your-org/educonnect-app/issues"
+    "url": "https://sertjerm.github.io/edu-connect-demo/issues"
   },
-  "homepage": "https://educonnect.ac.th"
+  "homepage": "https://sertjerm.github.io/edu-connect-demo"
 }

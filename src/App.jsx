@@ -1,82 +1,109 @@
-import React, { useState } from 'react'
-import { TrendingUp, TrendingDown, Users, BookOpen, GraduationCap, DollarSign, Monitor, Tablet, Smartphone } from 'lucide-react'
-import Sidebar from './components/common/Sidebar'
-import { dashboardStats, appInfo } from './data/mockData'
-import './App.scss'
+// src/App.jsx
+import React, { useState } from 'react';
+import Sidebar from './components/common/Sidebar';
+import {
+  TrendingUp,
+  TrendingDown,
+  Users,
+  ShoppingCart,
+  DollarSign,
+  Eye,
+} from 'lucide-react';
+import './App.scss';
 
 function App() {
-  const [sidebarOpen, setSidebarOpen] = useState(true) // เปิด sidebar by default เหมือน DeviasKit
-  const [currentPage, setCurrentPage] = useState('dashboard')
+  const [sidebarOpen, setSidebarOpen] = useState(false);
 
-  const toggleSidebar = () => {
-    setSidebarOpen(!sidebarOpen)
-  }
-
-  const handlePageChange = (page) => {
-    setCurrentPage(page)
-    if (window.innerWidth < 1024) {
-      setSidebarOpen(false)
-    }
-  }
-
-  // Stats cards เหมือน DeviasKit
+  // Mock data for stats
   const stats = [
     {
-      icon: <DollarSign className="w-6 h-6" />,
-      value: "24k",
-      label: "BUDGET",
-      trend: "+12%",
-      trendText: "Since last month",
-      color: "text-indigo-400",
-      bgColor: "bg-indigo-500"
+      label: 'Total Users',
+      value: '8,549',
+      icon: <Users className="h-6 w-6" />,
+      bgColor: 'bg-blue-500',
+      trend: '+12%',
+      trendText: 'from last month',
+      isNegative: false,
+      progressValue: 75,
     },
     {
-      icon: <Users className="w-6 h-6" />,
-      value: `${dashboardStats.studentsJoined / 100}k`,
-      label: "TOTAL CUSTOMERS", 
-      trend: "-16%",
-      trendText: "Since last month",
-      color: "text-cyan-400",
-      bgColor: "bg-cyan-500",
-      isNegative: true
+      label: 'Sales',
+      value: '$12,426',
+      icon: <ShoppingCart className="h-6 w-6" />,
+      bgColor: 'bg-green-500',
+      trend: '+8%',
+      trendText: 'from last month',
+      isNegative: false,
+      progressValue: 60,
     },
     {
-      icon: <BookOpen className="w-6 h-6" />,
-      value: "75.5%",
-      label: "TASK PROGRESS",
-      trend: null,
-      progressValue: 75.5,
-      color: "text-orange-400", 
-      bgColor: "bg-orange-500"
+      label: 'Revenue',
+      value: '$45,678',
+      icon: <DollarSign className="h-6 w-6" />,
+      bgColor: 'bg-purple-500',
+      trend: '-3%',
+      trendText: 'from last month',
+      isNegative: true,
+      progressValue: 45,
     },
     {
-      icon: <GraduationCap className="w-6 h-6" />,
-      value: "15k",
-      label: "TOTAL PROFIT",
-      trend: null,
-      color: "text-indigo-400",
-      bgColor: "bg-indigo-600"
-    }
-  ]
+      label: 'Page Views',
+      value: '1,24,567',
+      icon: <Eye className="h-6 w-6" />,
+      bgColor: 'bg-orange-500',
+      trend: '+15%',
+      trendText: 'from last month',
+      isNegative: false,
+      progressValue: 80,
+    },
+  ];
 
-  // Traffic source data เหมือน DeviasKit
+  // Mock data for traffic sources
   const trafficSources = [
-    { name: "Desktop", value: 63, icon: <Monitor className="w-5 h-5" /> },
-    { name: "Tablet", value: 15, icon: <Tablet className="w-5 h-5" /> },
-    { name: "Phone", value: 22, icon: <Smartphone className="w-5 h-5" /> }
-  ]
+    {
+      name: 'Desktop',
+      value: '63',
+      icon: (
+        <div
+          className="legend-dot"
+          style={{ backgroundColor: '#6366f1' }}
+        ></div>
+      ),
+    },
+    {
+      name: 'Tablet',
+      value: '15',
+      icon: (
+        <div
+          className="legend-dot"
+          style={{ backgroundColor: '#f59e0b' }}
+        ></div>
+      ),
+    },
+    {
+      name: 'Phone',
+      value: '22',
+      icon: (
+        <div
+          className="legend-dot"
+          style={{ backgroundColor: '#10b981' }}
+        ></div>
+      ),
+    },
+  ];
 
   return (
     <div className="app">
-      <Sidebar 
+      <Sidebar
         isOpen={sidebarOpen}
-        onToggle={toggleSidebar}
-        currentPage={currentPage}
-        onPageChange={handlePageChange}
+        onToggle={() => setSidebarOpen(!sidebarOpen)}
       />
 
-      <main className={`app-main ${sidebarOpen ? 'app-main--sidebar-open' : 'app-main--sidebar-closed'}`}>
-        
+      <main
+        className={`app-main ${
+          sidebarOpen ? 'app-main--sidebar-open' : 'app-main--sidebar-closed'
+        }`}
+      >
         {/* Top Stats Cards */}
         <div className="dashboard-header">
           <div className="stats-row">
@@ -91,27 +118,31 @@ function App() {
                     {stat.icon}
                   </div>
                 </div>
-                
+
                 {/* Trend indicator */}
                 {stat.trend && (
                   <div className="stat-card__trend">
                     {stat.isNegative ? (
-                      <TrendingDown className="w-4 h-4 text-red-400" />
+                      <TrendingDown className="h-4 w-4 text-red-400" />
                     ) : (
-                      <TrendingUp className="w-4 h-4 text-green-400" />
+                      <TrendingUp className="h-4 w-4 text-green-400" />
                     )}
-                    <span className={stat.isNegative ? "text-red-400" : "text-green-400"}>
+                    <span
+                      className={
+                        stat.isNegative ? 'text-red-400' : 'text-green-400'
+                      }
+                    >
                       {stat.trend}
                     </span>
                     <span className="text-gray-400">{stat.trendText}</span>
                   </div>
                 )}
-                
+
                 {/* Progress bar */}
                 {stat.progressValue && (
                   <div className="stat-card__progress">
                     <div className="progress-bar">
-                      <div 
+                      <div
                         className="progress-bar__fill"
                         style={{ width: `${stat.progressValue}%` }}
                       />
@@ -124,114 +155,10 @@ function App() {
         </div>
 
         {/* Main Dashboard Content */}
-        <div className="dashboard-content">
-          
-          {/* Sales Chart Section */}
-          <div className="dashboard-section">
-            <div className="chart-card">
-              <div className="chart-header">
-                <h2 className="chart-title">Sales</h2>
-                <button className="sync-btn">
-                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
-                  </svg>
-                  Sync
-                </button>
-              </div>
-              
-              {/* Mock Chart Area */}
-              <div className="chart-area">
-                <div className="chart-bars">
-                  {[20, 18, 15, 8, 5, 14, 14, 17, 19, 21, 19, 23].map((height, index) => (
-                    <div 
-                      key={index}
-                      className="chart-bar"
-                      style={{ height: `${height * 8}px` }}
-                    />
-                  ))}
-                </div>
-                <div className="chart-months">
-                  {['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'].map((month, index) => (
-                    <span key={index} className="chart-month">{month}</span>
-                  ))}
-                </div>
-              </div>
-            </div>
-
-            {/* Traffic Source Card */}
-            <div className="traffic-card">
-              <h3 className="traffic-title">Traffic source</h3>
-              
-              {/* Donut Chart */}
-              <div className="donut-chart">
-                <svg viewBox="0 0 100 100" className="donut-svg">
-                  {/* Background circle */}
-                  <circle cx="50" cy="50" r="40" fill="none" stroke="#374151" strokeWidth="8"/>
-                  {/* Progress circles */}
-                  <circle cx="50" cy="50" r="40" fill="none" stroke="#6366f1" strokeWidth="8"
-                          strokeDasharray={`${63 * 2.51} 251`} strokeDashoffset="0" transform="rotate(-90 50 50)"/>
-                  <circle cx="50" cy="50" r="40" fill="none" stroke="#f59e0b" strokeWidth="8"
-                          strokeDasharray={`${15 * 2.51} 251`} strokeDashoffset={`-${63 * 2.51}`} transform="rotate(-90 50 50)"/>
-                  <circle cx="50" cy="50" r="40" fill="none" stroke="#10b981" strokeWidth="8"
-                          strokeDasharray={`${22 * 2.51} 251`} strokeDashoffset={`-${(63 + 15) * 2.51}`} transform="rotate(-90 50 50)"/>
-                </svg>
-              </div>
-              
-              {/* Traffic Legend */}
-              <div className="traffic-legend">
-                {trafficSources.map((source, index) => (
-                  <div key={index} className="legend-item">
-                    {source.icon}
-                    <div className="legend-info">
-                      <div className="legend-name">{source.name}</div>
-                      <div className="legend-value">{source.value}%</div>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </div>
-
-          {/* Latest Products & Orders */}
-          <div className="dashboard-section">
-            <div className="table-card">
-              <h3 className="table-title">Latest products</h3>
-              {/* Table placeholder */}
-              <div className="table-placeholder">
-                <div className="placeholder-item">
-                  <div className="placeholder-avatar"></div>
-                  <div className="placeholder-text">
-                    <div className="placeholder-line"></div>
-                    <div className="placeholder-line short"></div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            
-            <div className="table-card">
-              <h3 className="table-title">Latest orders</h3>
-              {/* Table headers */}
-              <div className="table-headers">
-                <span>Order</span>
-                <span>Customer</span> 
-                <span>Date</span>
-                <span>Status</span>
-              </div>
-              <div className="table-placeholder">
-                <div className="placeholder-row">
-                  <div className="placeholder-line"></div>
-                  <div className="placeholder-line"></div>
-                  <div className="placeholder-line"></div>
-                  <div className="placeholder-badge"></div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-        </div>
+        <div className="dashboard-content">dfsdfdsfsdf</div>
       </main>
     </div>
-  )
+  );
 }
 
-export default App
+export default App;
