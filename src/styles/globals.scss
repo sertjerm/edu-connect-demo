@@ -1,0 +1,172 @@
+// src/styles/globals.scss
+
+// 1. @use rules (ต้องมาก่อนสุด)
+@use 'variables' as *;
+@use 'mixins' as *;
+
+// 2. @import และ external imports
+@import url("https://fonts.googleapis.com/css2?family=Sarabun:wght@300;400;500;600;700&display=swap");
+
+// Import Tailwind CSS
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+// =======================================
+// 🌐 Global Base Styles
+// =======================================
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 16px;
+  scroll-behavior: smooth;
+  @include custom-scrollbar;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: $font-family-thai;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background: linear-gradient(135deg, $gradient-primary-start 0%, $gradient-primary-end 100%);
+  min-height: 100vh;
+}
+
+// =======================================
+// 🔧 Reset Styles
+// =======================================
+
+h1, h2, h3, h4, h5, h6 {
+  margin: 0;
+  font-family: $font-family-thai;
+  font-weight: $font-semibold;
+}
+
+p {
+  margin: 0;
+  font-family: $font-family-thai;
+}
+
+button {
+  font-family: $font-family-thai;
+  cursor: pointer;
+  
+  &:disabled {
+    cursor: not-allowed;
+    opacity: 0.6;
+  }
+}
+
+input, textarea, select {
+  font-family: $font-family-thai;
+}
+
+// =======================================
+// 🎯 Focus & Selection Styles
+// =======================================
+
+*:focus {
+  outline: none;
+}
+
+*:focus-visible {
+  outline: 2px solid rgba(255, 255, 255, 0.5);
+  outline-offset: 2px;
+}
+
+::selection {
+  background: rgba($primary-500, 0.3);
+  color: white;
+}
+
+::-moz-selection {
+  background: rgba($primary-500, 0.3);
+  color: white;
+}
+
+// =======================================
+// 🎨 Utility Classes
+// =======================================
+
+.glass {
+  @include glass-effect();
+}
+
+.glass-strong {
+  @include glass-effect(0.3, 20px);
+}
+
+.glass-light {
+  @include glass-effect(0.1, 5px);
+}
+
+.animate-fade-in {
+  @include fade-in();
+}
+
+.animate-slide-up {
+  @include slide-up();
+}
+
+.animate-float {
+  @include float();
+}
+
+.animate-bounce-gentle {
+  @include bounce-gentle();
+}
+
+.center-flex {
+  @include center-flex;
+}
+
+.absolute-center {
+  @include absolute-center;
+}
+
+.truncate-2 {
+  @include truncate-text(2);
+}
+
+.truncate-3 {
+  @include truncate-text(3);
+}
+
+// =======================================
+// 📱 Responsive Helper Classes
+// =======================================
+
+.hide-mobile {
+  @include respond-to-max('md') {
+    display: none !important;
+  }
+}
+
+.hide-desktop {
+  @include respond-to('md') {
+    display: none !important;
+  }
+}
+
+.show-mobile {
+  display: none !important;
+  
+  @include respond-to-max('md') {
+    display: block !important;
+  }
+}
+
+.show-desktop {
+  display: none !important;
+  
+  @include respond-to('md') {
+    display: block !important;
+  }
+}
