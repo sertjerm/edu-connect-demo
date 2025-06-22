@@ -171,14 +171,14 @@ const Sidebar = ({ isOpen, onToggle, currentPage, onPageChange }) => {
           <div className="sidebar__profile">
             <div className="sidebar__avatar">
               <img
-                src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=40&h=40&fit=crop&crop=face&auto=format&q=60"
+                src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=40&h=40&fit=crop&crop=face&auto=format&q=60"
                 alt="User Avatar"
                 className="sidebar__avatar-img"
               />
               <div className="sidebar__avatar-status"></div>
             </div>
             <div className="sidebar__user-info">
-              <p className="sidebar__user-name">สมชาย ใจดี</p>
+              <p className="sidebar__user-name">ปัฐมาภรณ์ พิมพ์ทอง</p>
               <p className="sidebar__user-role">อาจารย์</p>
             </div>
           </div>
